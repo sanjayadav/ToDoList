@@ -96,23 +96,23 @@ let createTask = (req, res) => {
                         let apiResponse = response.generate(true, 'Error Occured.', 500, null)
                         reject(apiResponse)
                     } else {
-                        // console.log("this is subtask title "+JSON.stringify(req.body.subTask[0].newSubTaskTitle))
-                        // let newSubTask = new SubTaskModel({
-                        //     title:JSON.stringify(req.body.subTask)
+                        console.log("this is subtask title "+ req.body.subTask)
+                        let newSubTask = new SubTaskModel({
+                            title:(req.body.subTask)
                            
-                        // })
+                        })
                        
-                        // newSubTask.save((err,result)=> {
-                        //     if (err) {
-                        //         console.log('Error Occured.')
-                        //         logger.error(`Error Occured : ${err}`, 'Database', 10)
-                        //         let apiResponse = response.generate(true, 'Error Occured.', 500, null)
-                        //         reject(apiResponse)
-                        //     }else{
-                        //         console.log('Success in task creation')
+                        newSubTask.save((err,result)=> {
+                            if (err) {
+                                console.log('Error Occured.')
+                                logger.error(`Error Occured : ${err}`, 'Database', 10)
+                                let apiResponse = response.generate(true, 'Error Occured.', 500, null)
+                                reject(apiResponse)
+                            }else{
+                                console.log('Success in task creation')
                                
-                        //         resolve(result)}       
-                        // }) // end new task save
+                                resolve(result)}       
+                        }) // end new task save
                         resolve(result)
                     }
                 
