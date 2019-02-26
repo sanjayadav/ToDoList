@@ -1,0 +1,29 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Server for To Do List",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sanjay Yadav",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.16.4",
+    "helmet": "^3.15.1",
+    "jsonwebtoken": "^8.4.0",
+    "lodash": "^4.17.11",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.23",
+    "mongoose": "^5.4.11",
+    "morgan": "^1.9.1",
+    "nodemailer": "^5.1.1",
+    "pino": "^5.11.1",
+    "redis": "^2.8.0",
+    "shortid": "^2.2.14",
+    "socket.io": "^2.2.0"
+  }
+}
