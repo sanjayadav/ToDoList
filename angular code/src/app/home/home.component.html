@@ -1,0 +1,88 @@
+<section id="nav-bar">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" [routerLink]="['/home']"><img src="assets/img/logo.png"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/home']">HOME</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link pointer" (click)="goToSignIn()"><i class="fa fa-sign-in" aria-hidden="true"></i> LOGIN</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link pointer" (click)="goToSignUp()"><i class="fa fa-user" aria-hidden="true"></i> SIGNUP</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</section>
+<section id="banner">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <p class="promo-title">To Do List</p>
+        <p style="margin-bottom:30px;">Real Time To Do List management system for multiple users, where you can create, edit or delete a list. Keep track of your daily tasks with this simple tool.</p>
+      </div>
+      <div class="col-md-6 text-center order-first order-md-6">
+        <img src="assets/img/home1.svg" class="img-fluid">
+      </div>
+    </div>
+  </div>
+  <img src="assets/img/wave1.png" class="bottom-img">
+</section>
+<section id="services">
+  <div class="container text-center">
+    <h1 class="title">Features</h1>
+    <div class="row text-center">
+      <div class="col-md-4 services">
+        <img src="assets/img/user.svg" class="service-img">
+        <h4>User Management</h4>
+        <p>You can create free account on our website and keep track of your work and data.</p>
+      </div>
+      <div class="col-md-4 services">
+        <img src="assets/img/list.svg" class="service-img">
+        <h4>List Management</h4>
+        <p>User can easily create, edit or delete items from the list.</p>
+      </div>
+      <div class="col-md-4 services">
+        <img src="assets/img/team.svg" class="service-img">
+        <h4>Mutiple Users</h4>
+        <p>User can add multiple friends to an assigned list, friends too can edit the list.</p>
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary">All Services</button>
+  </div>
+</section>
+<section id="about-us">
+  <div class="container">
+    <h1 class="title text-center">ABOUT US</h1>
+    <div class="row">
+      <div class="col-md-6">
+          <img src="assets/img/home2.svg" class="img-fluid">
+        </div>
+      <div class="col-md-6 about-us">
+        <p class="about-title">What makes us different</p>
+        <ul>
+          <li>Easy to use To Do List for your daily tasks</li>
+          <li>Multi-User Support</li>
+          <li>Free to use</li>
+          <li>Data protection</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="footer">
+  <img src="assets/img/wave2.png" class="footer-img">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 footer-box">
+        <img src="assets/img/logo.png">
+      </div>
+    </div>
+    <p class="copyright">To Do List Management System | 2019</p>
+  </div>
+</section>

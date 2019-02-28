@@ -1,0 +1,54 @@
+.ng-valid[required], .ng-valid.required  {
+    color:  #42A948; /* green */
+}
+.ng-invalid:not(form)  {
+    color:  #a94442; /* red */
+}
+a:not([href]):not([tabindex]) {
+    color:white;
+}
+.bg-grey{
+    background:#F2F3F9;
+  }
+.btn{
+    border-radius: 50px; 
+}
+.btn-outline-success, .btn-outline-danger{
+    font-weight: 100;
+
+}
+a:hover{
+    color:white !important;
+}
+.createBtn{
+    color:white;
+    padding-left:30px;
+    padding-right:30px;
+}
+h4{
+    font-size: 25px;
+    font-weight: 400;
+    padding: 7px 0 7px 0;
+  }
+.form-full-width {
+    min-width: 150px;
+    max-width: 800px;
+    width:100%;
+}
+
+.input-full-width {
+    min-width: 150px;
+    max-width: 800px;
+    width:100%;
+}
+.card-form {
+    border: 0;
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+}
+.card-form {
+    padding: 2rem;
+}
+.card-body{
+    padding:2rem;
+}

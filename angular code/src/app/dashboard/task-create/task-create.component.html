@@ -1,0 +1,126 @@
+<section id="nav-bar">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand pointer" [routerLink]="['/dashboard']"><img src="assets/img/logo.png"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/dashboard']"><i class="fa fa-dashboard" aria-hidden="true"></i> Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link pointer" (click)="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</section>
+<div class="container-fluid bg-grey" style="padding-bottom:60px; padding-top:50px;">
+  <div class="row" style="text-align:left">
+    <div class="col-md-10 offset-md-1">
+      <div class="card card-form">
+        <div class="card-body">
+          <h4>Create a Task</h4>
+          <br>
+          <form [formGroup]= "taskForm" [hidden]="success" (ngSubmit)="createTask()" class="form-full-width">
+            <label>Task</label><br>
+            <div class="row">
+              <div class="col-10">
+                <mat-form-field class="input-full-width">
+                  <input matInput formControlName='taskTitle' placeholder="Enter task here...">
+                </mat-form-field>
+              </div>
+              <div class="col-2">
+                <a (click)="addSubTask()" class="btn btn-outline-success" style="color:#5cb85c;" title="Add Sub-Task"><i class="fa fa-plus"></i></a>
+              </div>
+              <span *ngIf="taskTitle.invalid && taskTitle.touched" class="warn">
+                  Please enter task to proceed.
+              </span>
+            </div>
+            <!--Sub Tasks-->
+            <div formArrayName="subTaskTitle">
+              <div *ngFor="let subTask of taskForm.get('subTaskTitle').controls; let i=index">
+                <div [formGroupName]="i">
+                  <div class="row">
+                    <div class="col-8 col-sm-10">
+                      <mat-form-field class="input-full-width" style="width:87.5%;float:right;">
+                        <input matInput formControlName="newSubTaskTitle" placeholder="Enter sub-task here...">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-2  col-sm-1">
+                      <a (click)="addSubSubTask(subTask.controls.subSubTaskTitle)" class="btn btn-outline-success" style="color:#5cb85c;" title="Add Sub-Sub-Task"><i class="fa fa-plus"></i></a>
+                    </div>
+                    <div class="col-2 col-sm-1">
+                      <a (click)="deleteSubTask(i)" style="color:#d9534f;" class="btn btn-outline-danger" title="Remove Sub-Task"><i class="fa fa-close"></i></a>
+                    </div>
+                  </div>
+                  <div formArrayName="subSubTaskTitle"> 
+                    <div *ngFor="let newSubSubTaskTitle of subTask.get('subSubTaskTitle').controls; let j=index">
+                      <div [formGroupName]="j" > 
+                        <div class="row"> 
+                          <div class="col-10">
+                            <mat-form-field class="input-full-width" style="width:75%;float:right;">
+                              <input matInput formControlName="newSubSubTaskTitle" placeholder="Enter sub-sub-task">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-2">
+                            <a (click)="deleteSubSubTask(subTask.controls.subSubTaskTitle, j)" class="btn btn-outline-danger" style="color:#d9534f;" title="Remove Sub-Sub-Task"><i class="fa fa-close"></i></a>
+                          </div>
+                        </div>
+                      </div> 
+                    </div>                  
+                  </div> 
+                </div>
+              </div>
+            </div>
+            
+            <br><br><label>Status</label><br>
+            <mat-form-field class="input-full-width">
+              <!-- <input matInput formControlName='taskStatus' placeholder="Choose Status"> -->
+              <mat-select formControlName='taskStatus' placeholder="Choose Stautus">
+                <mat-option value="Open">Open</mat-option>
+                <mat-option value="Done">Done</mat-option>
+              </mat-select>
+            </mat-form-field>
+          
+            <br><br><label>Due By <small class="text-muted">(Click on calendar icon to choose a date.)</small></label><br>
+            <mat-form-field >
+              <input matInput formControlName='taskDueDate' [matDatepicker]="picker" placeholder="Choose a date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <br><br> <label>Priority</label><br>
+            <mat-form-field class="input-full-width">
+              <!-- <input matInput formControlName='taskPriority' placeholder="Select Priotiy"> -->
+              <mat-select formControlName='taskPriority' placeholder="Select Priority">
+                <mat-option value="Low">Low</mat-option>
+                <mat-option value="Medium">Medium</mat-option>
+                <mat-option value="Medium">High</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <br> 
+            <br>
+            <br>
+            <div class="row" style="float: right">
+              <button [disabled]="taskForm.invalid"  class="btn createBtn btn-primary">Create Task</button>
+            </div>
+          </form>
+        </div>
+      </div>   
+    </div>
+  </div>
+</div>    
+<section id="footer" >
+  <img src="assets/img/wave2.png" class="footer-img">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 footer-box">
+        <img src="assets/img/logo.png">
+      </div>
+    </div>
+    <p class="copyright">To Do List Management System | 2019</p>
+  </div>
+</section>
+
