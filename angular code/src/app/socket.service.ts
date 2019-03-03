@@ -16,7 +16,7 @@ import{HttpErrorResponse,HttpParams} from '@angular/common/http';
 })
 export class SocketService {
 
-  private url='http://localhost:3000';
+  private url='http://localhost:3000/api/v1/notifications';
   private socket;
 
   constructor(public http:HttpClient,private cookieService: CookieService ) { 
@@ -92,11 +92,18 @@ export class SocketService {
 
   public getNotification(senderId,receiverId, skip): Observable<any> {
 
-    return this.http.get(`${this.url}/api/v1/notifications/get/for/user?senderId=${senderId}&receiverId=${receiverId}&skip=${skip}&authToken=${this.cookieService.get('authtoken')}`)
+    return this.http.get(`${this.url}/get/for/user?senderId=${senderId}&receiverId=${receiverId}&skip=${skip}&authToken=${this.cookieService.get('authtoken')}`)
       .pipe(tap(data => console.log('Data Received')),
             catchError(this.handleError));
 
-  } // end logout function
+  } 
+
+  public getGroupNotification(notificationRoom, skip): Observable<any> {
+    return this.http.get(`${this.url}/get/for/group?notificationRoom=${notificationRoom}&skip=${skip}&authToken=${this.cookieService.get('authtoken')}`)
+      .pipe(tap(data => console.log('Data Received')),
+            catchError(this.handleError));
+
+  } 
 
   public notificationByUserId = (userId) => {
 

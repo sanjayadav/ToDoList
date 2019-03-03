@@ -62,7 +62,14 @@ let taskSchema = new Schema({
     lastModified:{
         type:String,
         default:time.standardFormat()
-    }
+    },
+    notification:[{    
+        firstName:String,
+        lastName:String,
+        emailId:String,
+        notification:String,
+        issueTitle:String
+    }]
      
 });
 

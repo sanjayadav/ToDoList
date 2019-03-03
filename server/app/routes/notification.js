@@ -8,6 +8,8 @@ module.exports.setRouter = (app) => {
   let baseUrl = `${appConfig.apiVersion}/notifications`;
 
   app.get(`${baseUrl}/get/for/user`, auth.isAuthorized, notificationController.getUsersNotification);
+
+  app.get(`${baseUrl}/get/for/group`, auth.isAuthorized, notificationController.getGroupNotification);
   
   app.post(`${baseUrl}/mark/as/seen`, auth.isAuthorized, notificationController.markNotificationAsSeen);
 

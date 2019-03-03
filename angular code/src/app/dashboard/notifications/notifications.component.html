@@ -9,42 +9,21 @@
         <li class="nav-item">
           <a class="nav-link pointer" (click)="goToDashboard()"><i class="fa fa-dashboard" aria-hidden="true"></i> Dashboard</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link pointer" (click)="goToFriends()"><i class="fa fa-user-plus" aria-hidden="true"></i> Friends</a>
+        </li>
       </ul>
     </div>
   </nav>
 </section>
 
-<div class="container-fluid bg-grey " style="padding-top:15px;">
-  <div class="row align-items-center justify-content-center" style="padding-top:10px; padding-bottom:10px;">
-    <div class="col-10">
-      <div class="card card-signin">
-        <div class="card-body">
-          <h5 class="card-title text-center">Search User</h5>
-          <div class="col-8 offset-2">
-            <div class="form-signin">
-              <div class="form-group">
-                <p>Please enter user's registered email here</p>
-                <input type="email" id="inputEmail" class="form-control" [(ngModel)]="email" placeholder="Enter registered email" required autofocus>
-              </div>
-              <div class="row justify-content-center">
-                <button class="btn btn-lg btn-primary btn-block text-uppercase" type="button" (click)="searchUserFunction()">Add as friend</button>
-              </div>
-              <hr>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="container-fluid bg-grey" style="padding-bottom:30px;">
+<div class="container-fluid bg-grey" style="padding-top:15px;padding-bottom:30px;">
   <div class="row">
     <div class="col-10 offset-1">
       <div class="card card-signin">
         <div class="card-body">
           <h5 class="card-title text-center">Notifications</h5>
-          <div class="row" #scrollMe [scrollTop]="(scrollToNotificationTop)?0:scrollMe.scrollHeight" *ngIf="receiverName">
+          <div class="row" *ngIf="receiverName">
             <div class="col-12 text-center" *ngIf="receiverName">
               <button class="btn btn-success" (click)="loadEarlierPageOfNotification()">Load Previous Notifications</button>
               <br>

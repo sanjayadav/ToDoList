@@ -1,0 +1,74 @@
+<section id="nav-bar">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand pointer" (click)="goToDashboard()"><img src="assets/img/logo.png"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link pointer" (click)="goToDashboard()"><i class="fa fa-dashboard" aria-hidden="true"></i> Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="goToNotifications()"><i class="fa fa-bell" aria-hidden="true"></i> Notifications</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</section>
+
+<div class="container-fluid bg-grey " style="padding-top:20px;">
+  <div class="row" style="padding-top:20px; padding-bottom:30px;">
+
+    <div class="col-lg-4" style="padding-top:20px;">
+      <div class="card card-signin">
+        <div class="card-body">
+          <h5 class="card-title text-center">Search User</h5>
+          <div class="form-signin">
+            <div class="form-group">
+              <p>Please enter user's registered email here</p>
+              <input type="email" id="inputEmail" class="form-control" [(ngModel)]="email" placeholder="Enter registered email" required autofocus>
+            </div>
+            <div class="row justify-content-center">
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="button" (click)="searchUserFunction()">Add as friend</button>
+            </div>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4" style="padding-top:20px;">
+      <div class="card card-signin">
+        <div class="card-body">
+          <h5 class="card-title text-center">All Friends</h5>
+          <div *ngFor= "let friend of liveUserInfo.friends" class="col-sm-12" style="padding-left:30px;">
+            <p> {{friend.firstName}} {{friend.lastName}}</p>
+          </div> 
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4" style="padding-top:20px;">
+      <div class="card card-signin">
+        <div class="card-body">
+          <h5 class="card-title text-center">Online Friends</h5>
+          <div *ngFor= "let friend of userList" class="col-sm-12" style="padding-left:30px;">
+            <p><i class="fa fa-circle"></i> {{friend.name}}</p>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<section id="footer">
+<img src="assets/img/wave2.png" class="footer-img">
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 footer-box">
+      <img src="assets/img/logo.png">
+    </div>
+  </div>
+  <p class="copyright">To Do List Management System | 2019</p>
+</div>
+</section>

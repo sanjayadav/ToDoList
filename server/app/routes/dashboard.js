@@ -12,7 +12,5 @@ module.exports.setRouter = (app) => {
     app.get(`${baseUrl}/view/:taskId`,auth.isAuthorized,dashboardController.viewByTaskId);
     app.post(`${baseUrl}/:taskId/delete`,auth.isAuthorized,dashboardController.deleteTask);
     app.put(`${baseUrl}/:taskId/edit`,auth.isAuthorized,dashboardController.editTask);
-    app.post(`${baseUrl}/:taskId/friends`,auth.isAuthorized,dashboardController.addYourselfAsTaskViewer);
-    app.post(`${baseUrl}/:taskId/otherViewers`,auth.isAuthorized,dashboardController.addOthersAsTaskViewer);
-   
+
 }

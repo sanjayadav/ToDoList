@@ -1,6 +1,7 @@
 import {Component,OnInit,ViewChild} from '@angular/core';
 import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import { AppService } from './../../app.service';
+import {SocketService} from './../../socket.service'
 import { Router } from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
@@ -14,7 +15,10 @@ import { CookieService } from 'ngx-cookie-service';
 
     public authToken: any;
     public userInfo: any;
+    public receiverId:any;
+    public receiverName:any;
     public tasks:TaskData[] = [];
+    public messageList: any =[];
     displayedColumns = ['task', 'status', 'duedate','priority'];
     dataSource: MatTableDataSource<TaskData>;
 
@@ -24,15 +28,19 @@ import { CookieService } from 'ngx-cookie-service';
   constructor(public AppService: AppService,
     public router: Router,
     private toastr: ToastrService,
-    private cookieService: CookieService) {
-   
-  }
+    private cookieService: CookieService,
+    private SocketService: SocketService) {}
+
   ngOnInit() {
 
     //Authenticate User
     this.authToken = this.cookieService.get('authtoken');
 
     this.userInfo = this.AppService.getUserInfoFromLocalstorage();
+
+    this.receiverId = this.cookieService.get("receiverId");
+
+    this.receiverName =  this.cookieService.get('receiverName');
 
     //Dashboard Table
     // Assign the data to the data source for the table to render
@@ -57,11 +65,27 @@ import { CookieService } from 'ngx-cookie-service';
     this.dataSource.filter = filterValue;
   }
 
+  public getMessageFromAUser :any =()=>{
+
+    this.SocketService.notificationByUserId(this.userInfo.userId)
+    .subscribe((data)=>{
+     
+      (this.receiverId==data.senderId)?this.messageList.push(data):'';
+
+      this.toastr.success(`${data.message}`)
+
+    });//end subscribe
+
+  }// end get message from a user 
+
   public goToNotifications: any = () => {
-
     this.router.navigate(['/notifications']);
-
   } 
+
+  public goToFriends: any = () => {
+    this.router.navigate(['/friends']);
+  } 
+  
   public logout: any = () => {
 
     this.AppService.logout()

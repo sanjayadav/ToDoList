@@ -5,6 +5,7 @@ import{Location} from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import {ToastrService} from 'ngx-toastr';
 import { FormControl, FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { SocketService } from 'src/app/socket.service';
 
 @Component({
   selector: 'app-task-view',
@@ -18,9 +19,17 @@ export class TaskViewComponent implements OnInit {
   public authToken: any;
   public userInfo: any;
   public data:any;
+  public messageList : any = [];
   taskForm: FormGroup;
-  constructor(private _route:ActivatedRoute, private router:Router, public AppService:AppService,private location:Location, private cookieService:CookieService, private toastr:ToastrService,private fb: FormBuilder) 
-  { }
+  constructor(private _route:ActivatedRoute, 
+    private router:Router, 
+    public AppService:AppService,
+    private location:Location, 
+    private cookieService:CookieService, 
+    private toastr:ToastrService,
+    private fb: FormBuilder,
+    private SocketService:SocketService
+    ) { }
   
   ngOnInit() {
     //Authenticate User
@@ -146,9 +155,9 @@ export class TaskViewComponent implements OnInit {
     this.AppService.editTask(title,subTask,status,dueDate,priority,taskId).subscribe(
 
       data=>{
-        console.log("task created");
+        console.log("task edited");
         console.log(data);
-        this.toastr.success('Task Created','Success');
+        this.toastr.success('Task Edited','Success');
         setTimeout(()=>{
           this.router.navigate(['/dashboard']);
         },1000)
@@ -158,7 +167,18 @@ export class TaskViewComponent implements OnInit {
         console.log(error);
         alert("Some error occured.");
       }
-    )
+    );
+
+    let notificationMsgObject = {
+      senderName: this.userInfo.firstName + " " + this.userInfo.lastName,
+      senderId: this.userInfo.userId,
+      notificationRoom: "todoNotification",
+      message:  this.userInfo.firstName + " " + this.userInfo.lastName+" has edited the list " +task.taskTitle ,
+      createdOn: new Date()
+    } // end notificationMsgObject
+    console.log(notificationMsgObject);
+    this.SocketService.SendNotificationMessage(notificationMsgObject);
+    this.messageList.push(notificationMsgObject);
   }
   public deleteThisTask():any{
     this.AppService.deleteTask(this.currentTask.taskId).subscribe(

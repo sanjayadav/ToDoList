@@ -293,125 +293,149 @@ let viewByTaskId = (req, res) => {
  * function to edit task by admin.
  */
 let editTask = (req, res) => {
-    let findTaskEditor=() =>{
-        return new Promise((resolve, reject) => {
-            UserModel.findOne({ 'userId': req.user.userId })
-            .exec((err,retrievedUserDetails)=>{
-                if (err) {
-                    console.log(err)
-                    logger.error(err.message, 'Dashboard Controller: findTaskCreator', 10)
-                    let apiResponse = response.generate(true, 'Failed To Find User Details', 500, null)
-                    reject(apiResponse)
-                } else if (check.isEmpty(retrievedUserDetails)) {
-                    logger.info('User Not Found!', 'Dashboard Controller: findTaskCreator')
-                    let apiResponse = response.generate(true, 'User Not Found!', 404, null)
-                    reject(apiResponse)
-                } else {
-                    let apiResponse = response.generate(false, 'User Details Found.', 200, retrievedUserDetails)
-                    let retrievedUserDetailsObj = retrievedUserDetails.toObject()
-                    delete retrievedUserDetailsObj.password
-                    delete retrievedUserDetailsObj._id
-                    delete retrievedUserDetailsObj.__v
-                    delete retrievedUserDetailsObj.createdOn
-                    delete retrievedUserDetailsObj.modifiedOn
-                    resolve(retrievedUserDetailsObj)
-                }
-            })
-        })
-    }
-    let assignTaskEditor=(userDetails) =>{
-        return new Promise((resolve, reject) => {
-            if (check.isEmpty(req.params.taskId)) {
-                console.log('taskId should be passed')
-                let apiResponse = response.generate(true, 'taskId is missing', 403, null)
-                reject(apiResponse)
-            } else {
-                    TaskModel.findOne({'taskId': req.params.taskId}).exec((err, result) => { 
+   let findTask=()=>{
+    return new Promise((resolve, reject) => {
+        if (check.isEmpty(req.params.taskId)) {
+            console.log('taskId should be passed')
+            let apiResponse = response.generate(true, 'taskId is missing', 403, null)
+            reject(apiResponse)
+        } else {
+                TaskModel.findOne({'taskId': req.params.taskId}).exec((err, result) => { 
                     if (err) {
                         console.log('Error Occured.')
                         logger.error(`Error Occured : ${err}`, 'Database', 10)
                         let apiResponse = response.generate(true, 'Error Occured.', 500, null)
                         reject(apiResponse)
                     }
-                    else {
-                        if(result.viewers.length!=0){
-                            let flag = 0;
-                            for(let i = 0; i < result.viewers.length; i++){
-                                let viewer = result.viewers[i].emailId;
-                                if(viewer==userDetails.email){
-                                    flag=1;
-                                }
-                            }
-                            if(flag==0){
-                                logger.info('Not Authorized to edit tasks.', 'Dashboard Controller: findTaskViewer')
-                                let apiResponse = response.generate(true, 'Not Authorized to Edit tasks.', 500, null)
-                                reject(apiResponse)
-                            }
-                            else if(flag==1){
-                                logger.info('Authorized to add watchers', 'Dashboard Controller: findTaskViewer')
-                                let apiResponse = response.generate(false, 'Authorized to add watchers!', 200,  null)
-
-                                result.set({ editorFirstName: userDetails.firstName,editorLastName:userDetails.lastName,lastModified:time.standardFormat() });
-                                result.notification.push({'firstName': userDetails.firstName,'lastName':userDetails.lastName,'emailId':userDetails.email,'notification': 'has edited task "','taskTitle':result.title+'"'});
-                                result.save(function (err, updatedResult) {
-                                    if (err){
-                                        console.log(err)
-                                        logger.error(err.message, 'Dashboard Controller: assignTaskEditor', 10)
-                                        let apiResponse = response.generate(true, 'Failed To Find Editor Details', 500, null)
-                                        reject(apiResponse)
-                                    }else{
-                                        let apiResponse = response.generate(false, 'Edited Successfully.', 200, updatedResult)
-                                        resolve(updatedResult)
-                                    }   
-                                });
-                            }
-                        }
-                        else{ 
-                            logger.info('Add Yourself as a watcher first.', 'Dashboard Controller: findTaskViewer')
-                            let apiResponse = response.generate(true, 'Add Yourself as a watcher first.', 500, null)
-                            reject(apiResponse)
-                        }                     
-                    }
-                })
-            }
-        })
-    }
-    let taskEditFunction=(updatedResult) =>{
-        return new Promise((resolve, reject) => {
-            if (check.isEmpty(updatedResult.taskId)) {
-                console.log('taskId should be passed')
-                let apiResponse = response.generate(true, 'taskId is missing', 403, null)
-                reject(apiResponse)
-            } else {
-                let options = req.body;        
-                if (options.status == "Backlog") options.color = "#FF3F3F";
-                else if(options.status == "In-Progress") options.color = "#FFCE2B";
-                else if(options.status == "In-Test") options.color = "#F74E00";
-                else if(options.status == "Completed") options.color = "#006400";
-                else options.color = "black";
-                TaskModel.update({ 'taskId': updatedResult.taskId}, options, { multi: true}).
-                exec((err, result) => {
-                    if (err) {
-                        console.log('Error Occured.')
-                        logger.error(`Error Occured : ${err}`, 'Database', 10)
-                        let apiResponse = response.generate(true, 'Error Occured.', 500, null)
-                        reject(apiResponse)
-                    } else if (check.isEmpty(result)) {
-                        console.log('Task Not Found.')
-                        let apiResponse = response.generate(true, 'Task Not Found', 404, null)
-                        reject(apiResponse)
-                    } else {
-                        console.log('Task Edited Successfully')
-                        let apiResponse = response.generate(false, 'Task Edited Successfully!', 200, result)
+                    else{
+                        console.log('Task Found')
+                        let apiResponse = response.generate(false, 'Task Found', 200, result)
                         resolve(result)
                     }
                 })
             }
         })
+   }
+   let findTaskCreator=(taskDetails)=>{
+    return new Promise((resolve, reject) => {
+        UserModel.findOne({ 'email': taskDetails.email})
+        .exec((err,retrievedUserDetails)=>{
+            if (err) {
+                console.log(err)
+                logger.error(err.message, ' findTaskCreator Controller: findUser', 10)
+                let apiResponse = response.generate(true, 'Failed To Find User Details', 500, null)
+                reject(apiResponse)
+            } else if (check.isEmpty(retrievedUserDetails)) {
+                logger.info('User Not Found!', ' findTaskCreator Controller: findUser')
+                let apiResponse = response.generate(true, 'User Not Found!', 404, null)
+                reject(apiResponse)
+            } else {
+                let apiResponse = response.generate(false, 'User Details Found.', 200, retrievedUserDetails)
+                let retrievedUserDetailsObj = retrievedUserDetails.toObject()
+                delete retrievedUserDetailsObj.password
+                delete retrievedUserDetailsObj._id
+                delete retrievedUserDetailsObj.__v
+                delete retrievedUserDetailsObj.createdOn
+                delete retrievedUserDetailsObj.modifiedOn
+                resolve(retrievedUserDetailsObj)
+            }
+        })
+    })
+   }
+    let findCreatorFriends=(creatorDetails)=>{
+        return new Promise((resolve, reject) => {
+            UserModel.findOne({'userId': creatorDetails.userId}).exec((err, result) => { 
+                if (err) {
+                    console.log('Error Occured.')
+                    logger.error(`Error Occured : ${err}`, 'Database', 10)
+                    let apiResponse = response.generate(true, 'Error Occured.', 500, null)
+                    reject(apiResponse)
+                }
+                else {
+                    let currentUser=req.user;
+                    let flag = 0;
+                    for(let i = 0; i < result.friends.length; i++){
+                        let friend = result.friends[i].emailId;
+                        if(friend==currentUser.email){
+                            flag=1;
+                        }
+                    }
+                    if(result.email==creatorDetails.email){
+                        flag=1;
+                    }
+                    if(flag==0){
+                        logger.info('Not Authorized to edit tasks.', 'Dashboard Controller: findTaskViewer')
+                        let apiResponse = response.generate(true, 'Not Authorized to Edit tasks.', 500, null)
+                        reject(apiResponse)
+                    }
+                    else if(flag==1){
+                        logger.info('Authorized to edit tasks', 'Dashboard Controller: findTaskViewer')
+                        let apiResponse = response.generate(false, 'Authorized to edit tasks!', 200,  null)
+                        resolve(currentUser)
+                    }                   
+                }
+            })
+            
+        })     
     }
-    findTaskEditor()
-    .then(assignTaskEditor)
+    let taskEditFunction = (currentUser) =>{
+
+        return new Promise((resolve, reject) => {
+          
+            TaskModel.findOne({ 'taskId': req.params.taskId }, (err, result) => {
+                if (err) {
+                    console.log('Error Occured.')
+                    logger.error(`Error Occured : ${err}`, 'Database', 10)
+                    let apiResponse = response.generate(true, 'Error Occured.', 500, null)
+                    reject(apiResponse)
+                } 
+                else {          
+                    result.set({ editorFirstName: currentUser.firstName,editorLastName:currentUser.lastName,lastModified:time.standardFormat() });
+                    result.notification.push({'firstName': currentUser.firstName,'lastName':currentUser.lastName,'emailId':currentUser.email,'notification': 'has edited issue "','issueTitle':result.title+'"'});
+                    result.save(function (err, updatedResult) {
+                        if (err){
+                            console.log(err)
+                            logger.error(err.message, 'Dashboard Controller: assignIssueEditor', 10)
+                            let apiResponse = response.generate(true, 'Failed To Find Editor Details', 500, null)
+                            reject(apiResponse)
+                        }else{
+                            let apiResponse = response.generate(false, 'Edited Successfully.', 200, updatedResult)
+                            resolve(updatedResult)
+                        }   
+                    });
+                }
+            });                       
+            
+        })
+    }
+    let taskUpdateFunction=(updatedResult) =>{
+        return new Promise((resolve, reject) => {    
+            let options = req.body;        
+            TaskModel.update({ 'taskId': updatedResult.taskId}, options, { multi: true}).
+            exec((err, result) => {
+                if (err) {
+                    console.log('Error Occured.')
+                    logger.error(`Error Occured : ${err}`, 'Database', 10)
+                    let apiResponse = response.generate(true, 'Error Occured.', 500, null)
+                    reject(apiResponse)
+                } else if (check.isEmpty(result)) {
+                    console.log('Task Not Found.')
+                    let apiResponse = response.generate(true, 'Task Not Found', 404, null)
+                    reject(apiResponse)
+                } else {
+                    console.log('Task Edited Successfully')
+                    let apiResponse = response.generate(false, 'Task Edited Successfully!', 200, result)
+                    resolve(result)
+                }
+            })
+            
+        })
+    }
+    findTask()
+    .then(findTaskCreator)
+    .then(findCreatorFriends)
     .then(taskEditFunction)
+    .then(taskUpdateFunction)
     .then((result) => {
         let apiResponse = response.generate(false, 'Task Edited successfully!', 200, result)
         res.send(apiResponse)
@@ -524,287 +548,6 @@ let deleteTask = (req, res) => {
     })
 }
 
-/**
- * function to add user as a viewer of an task.
- */
-let addYourselfAsTaskViewer = (req, res) => {
-    
-    let findTask=() =>{
-        return new Promise((resolve, reject) => {
-            if (check.isEmpty(req.params.taskId)) {
-                console.log('taskId should be passed')
-                let apiResponse = response.generate(true, 'taskId is missing', 403, null)
-                reject(apiResponse)
-            } 
-            else {
-                TaskModel.findOne({ 'taskId': req.params.taskId }, (err, result) => {
-                    if (err) {
-                        console.log('Error Occured.')
-                        logger.error(`Error Occured : ${err}`, 'Database', 10)
-                        let apiResponse = response.generate(true, 'Error Occured.', 500, null)
-                        reject(apiResponse)
-                    } 
-                    else if (check.isEmpty(result)) {
-                        console.log('Task Not Found.')
-                        let apiResponse = response.generate(true, 'Task Not Found', 404, null)
-                        reject(apiResponse)
-                    } 
-                    else {          
-                        console.log('Task Found')
-                        let apiResponse = response.generate(false, 'Task Found', 200, result)
-                        resolve(result)
-                    }
-                });                       
-            }
-        })
-    }
-
-    let findTaskCreator=(taskDetails) =>{
-        return new Promise((resolve, reject) => {
-            UserModel.findOne({ 'userId': req.user.userId })
-            .exec((err,retrievedUserDetails)=>{
-                if (err) {
-                    console.log(err)
-                    logger.error(err.message, 'Dashboard Controller: findTaskCreator', 10)
-                    let apiResponse = response.generate(true, 'Failed To Find User Details', 500, null)
-                    reject(apiResponse)
-                } else if (check.isEmpty(retrievedUserDetails)) {
-                    logger.info('No User Found', 'Dashboard Controller: findTaskCreator')
-                    let apiResponse = response.generate(true, 'User Not Found!', 404, null)
-                    reject(apiResponse)
-                }else {
-                    let apiResponse = response.generate(false, 'User Details Found', 200, retrievedUserDetails)
-                    let retrievedUserDetailsObj = retrievedUserDetails.toObject()
-                    delete retrievedUserDetailsObj.password
-                    delete retrievedUserDetailsObj._id
-                    delete retrievedUserDetailsObj.__v
-                    delete retrievedUserDetailsObj.createdOn
-                    delete retrievedUserDetailsObj.modifiedOn
-                    if(taskDetails.viewers.length!=0){
-                        let flag=0;
-                        for(let i = 0; i < taskDetails.viewers.length; i++){
-                            let viewer = taskDetails.viewers[i].emailId;                            
-                            if(viewer==retrievedUserDetailsObj.email){
-                                flag=1;
-                            }   
-                        }
-                        if(flag==1){
-                            logger.info('You are already a watcher!', 'Dashboard Controller: findTaskCreator')
-                            let apiResponse = response.generate(true, 'You are already a watcher!', 500, null)
-                            reject(apiResponse)
-                        }
-                        else if(flag==0){
-                            let newViewer = {'firstName':retrievedUserDetailsObj.firstName,'lastName':retrievedUserDetailsObj.lastName,'emailId':retrievedUserDetailsObj.email};
-                            logger.info('New Viewer Found', 'Dashboard Controller: findTaskCreator')
-                            let apiResponse = response.generate(true, 'New Viewer Found!', 200,  newViewer)
-                            resolve(newViewer)
-                        }
-                    
-                    }else{ 
-                        let newViewer = {'firstName':retrievedUserDetailsObj.firstName,'lastName':retrievedUserDetailsObj.lastName,'emailId':retrievedUserDetailsObj.email};                       
-                        logger.info('New Viewer Found', 'Dashboard Controller: findTaskCreator')
-                        let apiResponse = response.generate(true, 'New Viewer Found', 200, newViewer)
-                        resolve(newViewer)
-                    }
-                }
-            })
-        })
-    }
-    let addNewViewer=(viewerID) =>{
-        return new Promise((resolve, reject) => {      
-            TaskModel.findOne({'taskId': req.params.taskId}).exec((err, result) => {        
-                if (err) {
-                    console.log('Error Occured.')
-                    logger.error(`Error Occured : ${err}`, 'Database', 10)
-                    let apiResponse = response.generate(true, 'Error Occured.', 500, null)
-                    reject(apiResponse)
-                }
-                else {
-                    result.viewers.push({'firstName': viewerID.firstName,'lastName':viewerID.lastName, 'emailId':viewerID.emailId});
-                    result.notification.push({'firstName': viewerID.firstName,'lastName':viewerID.lastName, 'emailId':viewerID.emailId,'notification':" is added as a watcher."});
-                    result.save(function (err, updatedViewers) {
-                        if (err){
-                            console.log(err)
-                            logger.error(err.message, 'Dashboard Controller: addNewViewer', 10)
-                            let apiResponse = response.generate(true, 'Failed To Find Viewer Details!', 500, null)
-                            reject(apiResponse)
-                        }else{
-                            let apiResponse = response.generate(false, 'Viewer Added Successfully.', 200, updatedViewers)
-                            resolve(updatedViewers)
-                        }                      
-                    });
-                }
-            })      
-        })
-    }
-
-    findTask(req,res)
-    .then(findTaskCreator)
-    .then(addNewViewer)
-    .then((result) => {
-        let apiResponse = response.generate(false, 'Viewer Added Successfully.', 200, result)
-        res.send(apiResponse)
-    })
-    .catch((error) => {
-        console.log(error)
-        res.send(error)
-    })
-}
-/**
- * function to add other users as a viewer of an task.
- */
-let addOthersAsTaskViewer = (req, res) => {
-    
-    let findTask=() =>{
-        return new Promise((resolve, reject) => {
-            if (check.isEmpty(req.params.taskId)) {
-                console.log('taskId should be passed')
-                let apiResponse = response.generate(true, 'taskId is missing', 403, null)
-                reject(apiResponse)
-            } 
-            else {
-                TaskModel.findOne({ 'taskId': req.params.taskId }, (err, result) => {
-                    if (err) {
-                        console.log('Error Occured.')
-                        logger.error(`Error Occured : ${err}`, 'Database', 10)
-                        let apiResponse = response.generate(true, 'Error Occured.', 500, null)
-                        reject(apiResponse)
-                    } 
-                    else if (check.isEmpty(result)) {
-                        console.log('Task Not Found.')
-                        let apiResponse = response.generate(true, 'Task Not Found', 404, null)
-                        reject(apiResponse)
-                    } 
-                    else {          
-                        console.log('Task Found')
-                        let apiResponse = response.generate(false, 'Task Found', 200, result)
-                        resolve(result)
-                    }
-                });                       
-            }
-        })
-    }
-
-    let findTaskViewers=(taskDetails) =>{
-        return new Promise((resolve, reject) => {
-            UserModel.findOne({ 'userId': req.user.userId })
-            .exec((err,retrievedUserDetails)=>{
-                if (err) {
-                    console.log(err)
-                    logger.error(err.message, 'Dashboard Controller: findTaskCreator', 10)
-                    let apiResponse = response.generate(true, 'Failed To Find User Details', 500, null)
-                    reject(apiResponse)
-                } else if(check.isEmpty(retrievedUserDetails)) {
-                    logger.info('No User Found', 'Dashboard Controller: findTaskCreator')
-                    let apiResponse = response.generate(true, 'User Not Found!', 404, null)
-                    reject(apiResponse)
-                }else {
-                    let apiResponse = response.generate(false, 'User Details Found', 200, retrievedUserDetails)
-                    let retrievedUserDetailsObj = retrievedUserDetails.toObject()
-                    delete retrievedUserDetailsObj.password
-                    delete retrievedUserDetailsObj._id
-                    delete retrievedUserDetailsObj.__v
-                    delete retrievedUserDetailsObj.createdOn
-                    delete retrievedUserDetailsObj.modifiedOn
-                    if(taskDetails.viewers.length!=0){
-                        let flag =0;
-                        for(let i = 0; i < taskDetails.viewers.length; i++){
-                            let viewer = taskDetails.viewers[i].emailId;   
-                            if(viewer==retrievedUserDetailsObj.email) {
-                                flag=1;
-                            }   
-                        }
-                        if(flag==0){
-                            logger.info('Not Authorized to add watchers', 'Dashboard Controller: findTaskViewer')
-                            let apiResponse = response.generate(true, 'Not authorized to add watchers', 500, null)
-                            reject(apiResponse)
-                        }
-                        else if(flag==1){
-                            let viewerID = {'firstName':retrievedUserDetailsObj.firstName,'lastName':retrievedUserDetailsObj.lastName,'emailId':retrievedUserDetailsObj.email};
-                            logger.info('Authorized to add watchers', 'Dashboard Controller: findTaskViewer')
-                            let apiResponse = response.generate(false, 'Authorized to add watchers', 200,  viewerID)
-                            resolve(viewerID)
-                        }                
-                    }else{ 
-                        logger.info('Add Yourself as a watcher first.', 'Dashboard Controller: findTaskViewer')
-                            let apiResponse = response.generate(true, 'Please add yourself as a watcher first.', 500, null)
-                            reject(apiResponse)
-                    }
-                }
-            })
-        })
-    }
-    let addNewViewer=(viewerID) =>{
-        return new Promise((resolve, reject) => {      
-            TaskModel.findOne({'taskId': req.params.taskId}).exec((err, result) => {        
-                if (err) {
-                    console.log('Error Occured.')
-                    logger.error(`Error Occured : ${err}`, 'Database', 10)
-                    let apiResponse = response.generate(true, 'Error Occured.', 500, null)
-                    reject(apiResponse)
-                }
-                else {
-                    UserModel.findOne({ 'email': req.body.addOtherViewer})
-                    .exec((err,retrievedUserDetails)=>{
-                        if (err) {
-                            console.log(err)
-                            logger.error(err.message, 'Dashboard Controller: addNewViewer', 10)
-                            let apiResponse = response.generate(true, 'No User Found by that Email ID.', 500, null)
-                            reject(apiResponse)
-                        } else if(check.isEmpty(retrievedUserDetails)) {
-                            logger.info('No User Found by that Email ID.', 'Dashboard Controller: addNewViewer')
-                            let apiResponse = response.generate(true, 'No User Found by that Email ID', 404, null)
-                            reject(apiResponse)
-                        }else {
-                            let retrievedUserDetailsObj=retrievedUserDetails.toObject();
-                            let newOtherViewer = {'firstName': retrievedUserDetailsObj.firstName,'lastName':retrievedUserDetailsObj.lastName,'emailId': retrievedUserDetailsObj.email};
-                            let flagx=0;
-                            for(let i = 0; i < result.viewers.length; i++){
-                                let viewer = result.viewers[i].newOtherWatcherEmailId;
-                                if(viewer==newOtherViewer.emailId){      
-                                    flagx=1;
-                                }                     
-                            }
-                            if(flagx==1){
-                                logger.info('Already a Viewer', 'Dashboard Controller: findTaskCreator')
-                                let apiResponse = response.generate(true, 'Already a Viewer', 500, null)
-                                reject(apiResponse)
-                            }
-                            else if(flagx==0){
-                                result.viewers.push({'firstName':viewerID.firstName,'lastName':viewerID.lastName,'emailId':viewerID.emailId,'newOtherWatcherFirstName': newOtherViewer.firstName,'newOtherWatcherLastName':newOtherViewer.lastName, 'newOtherWatcherEmailId':newOtherViewer.emailId});
-                                result.notification.push({'firstName':  viewerID.firstName,'lastName': viewerID.lastName,'emailId':viewerID.emailId ,'notification':" added as a watcher by ", 'newOtherWatcherFirstName': newOtherViewer.firstName,'newOtherWatcherLastName':newOtherViewer.lastName, 'newOtherWatcherEmailId':newOtherViewer.emailId });
-                                result.save(function (err, updatedViewers) {
-                                    if (err){
-                                        console.log(err)
-                                        logger.error(err.message, 'Dashboard Controller: addNewViewer', 10)
-                                        let apiResponse = response.generate(true, 'Failed To Find Viewer Details', 500, null)
-                                        reject(apiResponse)
-                                    }else{
-                                        let apiResponse = response.generate(false, 'Viewer Added Successfully.', 200, updatedViewers)
-                                        resolve(updatedViewers)
-                                    }                      
-                                }); 
-                            }                                                     
-                        }
-                    })
-                }
-            })      
-        })
-    }
-
-    findTask(req,res)
-    .then(findTaskViewers)
-    .then(addNewViewer)
-    .then((result) => {
-        let apiResponse = response.generate(false, 'Viewer Added Successfully', 200, result)
-        res.send(apiResponse)
-    })
-    .catch((error) => {
-        console.log(error)
-        res.send(error)
-    })
-}
-
 
 module.exports = {
     getAllTasks: getAllTasks,
@@ -812,7 +555,5 @@ module.exports = {
     viewByTaskId : viewByTaskId, 
     userTasks: userTasks,
     editTask: editTask,
-    deleteTask: deleteTask,
-    addYourselfAsTaskViewer : addYourselfAsTaskViewer,
-    addOthersAsTaskViewer : addOthersAsTaskViewer
+    deleteTask: deleteTask
 }// end exports

@@ -64,7 +64,7 @@ let setServer = (server) => {
 
                                     console.log(`${fullName} is online`);
                                     // setting room name
-                                    socket.room = 'edNotification'
+                                    socket.room = 'todoNotification'
                                     // joining notification-group room.
                                     socket.join(socket.room)
                                     socket.to(socket.room).broadcast.emit('online-user-list', result);

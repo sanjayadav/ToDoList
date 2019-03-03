@@ -24,7 +24,7 @@ let getUsersNotification = (req, res) => {
   // function to validate params.
   let validateParams = () => {
     return new Promise((resolve, reject) => {
-      if (check.isEmpty(req.query.senderId) ) {
+      if (check.isEmpty(req.query.senderId) || check.isEmpty(req.query.receiverId) ) {
         logger.info('parameters missing', 'getUsersNotification handler', 9)
         let apiResponse = response.generate(true, 'parameters missing.', 403, null)
         reject(apiResponse)
@@ -38,23 +38,23 @@ let getUsersNotification = (req, res) => {
   let findNotifications = () => {
     return new Promise((resolve, reject) => {  
        // creating find query.
-      //  let findQuery = {
-      //   $or: [
-      //     {
-      //       $and: [
-      //         {senderId: req.query.senderId},
-      //         {receiverId: req.query.receiverId}
-      //       ]
-      //     },
-      //     {
-      //       $and: [
-      //         {receiverId: req.query.senderId},
-      //         {senderId: req.query.receiverId}
-      //       ]
-      //     }
-      //   ]
-      // }
-      NotificationModel.find({senderId: req.query.senderId})
+       let findQuery = {
+        $or: [
+          {
+            $and: [
+              {senderId: req.query.senderId},
+              {receiverId: req.query.receiverId}
+            ]
+          },
+          {
+            $and: [
+              {receiverId: req.query.senderId},
+              {senderId: req.query.receiverId}
+            ]
+          }
+        ]
+      }
+      NotificationModel.find(findQuery)
         .select('-_id -__v -notificationRoom')
         .sort('-createdOn')
         .skip(parseInt(req.query.skip) || 0)

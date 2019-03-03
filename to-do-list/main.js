@@ -326,7 +326,7 @@ module.exports = ".bg-grey{\r\n  background:#F2F3F9;\r\n}\r\nh4{\r\n    font-siz
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<section id=\"nav-bar\">\n  <nav class=\"navbar navbar-expand-lg navbar-light\">\n    <a class=\"navbar-brand pointer\" [routerLink]=\"['/dashboard']\"><img src=\"assets/img/logo.png\"></a>\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n      <i class=\"fa fa-bars\"></i>\n    </button>\n    <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\n      <ul class=\"navbar-nav ml-auto\">\n        <li class=\"nav-item\">\n          <a class=\"nav-link pointer\" [routerLink]=\"['/dashboard']\"><i class=\"fa fa-dashboard\" aria-hidden=\"true\"></i> Dashboard</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link pointer\" (click)=\"goToNotifications()\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i> Notifications</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link pointer\" (click)=\"logout()\"><i class=\"fa fa-sign-out\" aria-hidden=\"true\"></i> Log Out</a>\n        </li>\n      </ul>\n    </div>\n  </nav>\n</section>\n<!-- Table Section -->\n\n<div class=\"container-fluid bg-grey\" style=\"padding-bottom:60px;\">\n  <div class=\"col-sm-12\">\n      <h4>All Tasks</h4>\n  </div>\n  <div class=\"row\" >\n      <div class=\"col-sm-6\" style=\"padding-left: 30px;\">\n              <i class=\"icon-search\"></i> Search \n              <mat-form-field>\n                  <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Type here to search...\">\n              </mat-form-field>\n      </div>\n      <div class=\"col-sm-6 text-center\" style=\"margin-bottom:15px;\">\n          <a class=\"btn btn-primary\" [routerLink]=\"['/create']\"> Create new task <i class=\"fa fa-plus\"></i></a> \n      </div>\n  </div>\n\n<div class=\"col\">   \n  <div class=\"table-container table-responsive mat-elevation-z8\">    \n    <mat-table [dataSource]=\"dataSource\" matSort >\n        <!-- Title Column -->\n        <ng-container matColumnDef=\"task\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header class=\"task-cell\"> Task </mat-header-cell>\n          <mat-cell *matCellDef=\"let row\" class=\"task-cell\"> {{ (row.task.length>20)? (row.task | slice:0:20)+'..':(row.task) }} </mat-cell>\n        </ng-container>\n    \n        <!-- Status Column -->\n        <ng-container matColumnDef=\"status\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header class=\"status-cell\"> Status </mat-header-cell>\n          <mat-cell *matCellDef=\"let row\" [style.color]=\"row.color\" style=\"font-weight:500;\" class=\"status-cell\"> {{row.status}} </mat-cell>\n        </ng-container>\n        \n        <!-- Due By Column -->\n        <ng-container matColumnDef=\"duedate\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header class=\"duedate-cell\"> Due By </mat-header-cell>\n          <mat-cell *matCellDef=\"let row\" class=\"duedate-cell\" ><small class=\"text-muted\">{{row.dueDate | slice:8:10}} {{row.dueDate | slice:4:7}} {{row.dueDate | slice:11:15}}</small></mat-cell>\n        </ng-container> \n        \n        <!-- Status Column -->\n        <ng-container matColumnDef=\"priority\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header class=\"priority-cell\"> Priority </mat-header-cell>\n          <mat-cell *matCellDef=\"let row\" [style.color]=\"row.color\" style=\"font-weight:500;\" class=\"priority-cell\"> {{row.priority}} </mat-cell>\n        </ng-container>\n          \n                \n          <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n          <mat-row *matRowDef=\"let row; columns: displayedColumns;\" [routerLink]=\"['/task',row.taskId]\">\n          </mat-row>\n      </mat-table>\n    <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\n  </div>\n</div>\n</div>\n\n<section id=\"footer\" >\n  <img src=\"assets/img/wave2.png\" class=\"footer-img\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-md-4 footer-box\">\n        <img src=\"assets/img/logo.png\">\n      </div>\n    </div>\n    <p class=\"copyright\">To Do List Management System | 2019</p>\n  </div>\n</section>\n\n\n\n"
+module.exports = "<section id=\"nav-bar\">\n  <nav class=\"navbar navbar-expand-lg navbar-light\">\n    <a class=\"navbar-brand pointer\" [routerLink]=\"['/dashboard']\"><img src=\"assets/img/logo.png\"></a>\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n      <i class=\"fa fa-bars\"></i>\n    </button>\n    <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\n      <ul class=\"navbar-nav ml-auto\">\n        <li class=\"nav-item\">\n          <a class=\"nav-link pointer\" (click)=\"goToFriends()\"><i class=\"fa fa-user-plus\" aria-hidden=\"true\"></i> Friends</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link pointer\" (click)=\"goToNotifications()\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i> Notifications</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link pointer\" (click)=\"logout()\"><i class=\"fa fa-sign-out\" aria-hidden=\"true\"></i> Log Out</a>\n        </li>\n      </ul>\n    </div>\n  </nav>\n</section>\n<!-- Table Section -->\n\n<div class=\"container-fluid bg-grey\" style=\"padding-bottom:60px;\">\n  <div class=\"col-sm-12\">\n      <h4>All Tasks</h4>\n  </div>\n  <div class=\"row\" >\n      <div class=\"col-sm-6\" style=\"padding-left: 30px;\">\n              <i class=\"icon-search\"></i> Search \n              <mat-form-field>\n                  <input matInput (keyup)=\"applyFilter($event.target.value)\" placeholder=\"Type here to search...\">\n              </mat-form-field>\n      </div>\n      <div class=\"col-sm-6 text-center\" style=\"margin-bottom:15px;\">\n          <a class=\"btn btn-primary\" [routerLink]=\"['/create']\"> Create new task <i class=\"fa fa-plus\"></i></a> \n      </div>\n  </div>\n\n<div class=\"col\">   \n  <div class=\"table-container table-responsive mat-elevation-z8\">    \n    <mat-table [dataSource]=\"dataSource\" matSort >\n        <!-- Title Column -->\n        <ng-container matColumnDef=\"task\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header class=\"task-cell\"> Task </mat-header-cell>\n          <mat-cell *matCellDef=\"let row\" class=\"task-cell\"> {{ (row.task.length>20)? (row.task | slice:0:20)+'..':(row.task) }} </mat-cell>\n        </ng-container>\n    \n        <!-- Status Column -->\n        <ng-container matColumnDef=\"status\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header class=\"status-cell\"> Status </mat-header-cell>\n          <mat-cell *matCellDef=\"let row\" [style.color]=\"row.color\" style=\"font-weight:500;\" class=\"status-cell\"> {{row.status}} </mat-cell>\n        </ng-container>\n        \n        <!-- Due By Column -->\n        <ng-container matColumnDef=\"duedate\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header class=\"duedate-cell\"> Due By </mat-header-cell>\n          <mat-cell *matCellDef=\"let row\" class=\"duedate-cell\" ><small class=\"text-muted\">{{row.dueDate | slice:8:10}} {{row.dueDate | slice:4:7}} {{row.dueDate | slice:11:15}}</small></mat-cell>\n        </ng-container> \n        \n        <!-- Status Column -->\n        <ng-container matColumnDef=\"priority\">\n          <mat-header-cell *matHeaderCellDef mat-sort-header class=\"priority-cell\"> Priority </mat-header-cell>\n          <mat-cell *matCellDef=\"let row\" [style.color]=\"row.color\" style=\"font-weight:500;\" class=\"priority-cell\"> {{row.priority}} </mat-cell>\n        </ng-container>\n          \n                \n          <mat-header-row *matHeaderRowDef=\"displayedColumns\"></mat-header-row>\n          <mat-row *matRowDef=\"let row; columns: displayedColumns;\" [routerLink]=\"['/task',row.taskId]\">\n          </mat-row>\n      </mat-table>\n    <mat-paginator [pageSizeOptions]=\"[5, 10, 25, 100]\"></mat-paginator>\n  </div>\n</div>\n</div>\n\n<section id=\"footer\" >\n  <img src=\"assets/img/wave2.png\" class=\"footer-img\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-md-4 footer-box\">\n        <img src=\"assets/img/logo.png\">\n      </div>\n    </div>\n    <p class=\"copyright\">To Do List Management System | 2019</p>\n  </div>\n</section>\n\n\n\n"
 
 /***/ }),
 
@@ -344,9 +344,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _app_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../app.service */ "./src/app/app.service.ts");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
-/* harmony import */ var ngx_cookie_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-cookie-service */ "./node_modules/ngx-cookie-service/index.js");
+/* harmony import */ var _socket_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../socket.service */ "./src/app/socket.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var ngx_cookie_service__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-cookie-service */ "./node_modules/ngx-cookie-service/index.js");
+
 
 
 
@@ -355,16 +357,28 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var DashboardPageComponent = /** @class */ (function () {
-    function DashboardPageComponent(AppService, router, toastr, cookieService) {
+    function DashboardPageComponent(AppService, router, toastr, cookieService, SocketService) {
         var _this = this;
         this.AppService = AppService;
         this.router = router;
         this.toastr = toastr;
         this.cookieService = cookieService;
+        this.SocketService = SocketService;
         this.tasks = [];
+        this.messageList = [];
         this.displayedColumns = ['task', 'status', 'duedate', 'priority'];
+        this.getMessageFromAUser = function () {
+            _this.SocketService.notificationByUserId(_this.userInfo.userId)
+                .subscribe(function (data) {
+                (_this.receiverId == data.senderId) ? _this.messageList.push(data) : '';
+                _this.toastr.success("" + data.message);
+            }); //end subscribe
+        }; // end get message from a user 
         this.goToNotifications = function () {
             _this.router.navigate(['/notifications']);
+        };
+        this.goToFriends = function () {
+            _this.router.navigate(['/friends']);
         };
         this.logout = function () {
             _this.AppService.logout()
@@ -391,6 +405,8 @@ var DashboardPageComponent = /** @class */ (function () {
         //Authenticate User
         this.authToken = this.cookieService.get('authtoken');
         this.userInfo = this.AppService.getUserInfoFromLocalstorage();
+        this.receiverId = this.cookieService.get("receiverId");
+        this.receiverName = this.cookieService.get('receiverName');
         //Dashboard Table
         // Assign the data to the data source for the table to render
         this.AppService.allTasksFunction().subscribe(function (data) {
@@ -424,9 +440,10 @@ var DashboardPageComponent = /** @class */ (function () {
             styles: [__webpack_require__(/*! ./dashboard-page.component.css */ "./src/app/dashboard/dashboard-page/dashboard-page.component.css")]
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_service__WEBPACK_IMPORTED_MODULE_3__["AppService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
-            ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrService"],
-            ngx_cookie_service__WEBPACK_IMPORTED_MODULE_6__["CookieService"]])
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"],
+            ngx_cookie_service__WEBPACK_IMPORTED_MODULE_7__["CookieService"],
+            _socket_service__WEBPACK_IMPORTED_MODULE_4__["SocketService"]])
     ], DashboardPageComponent);
     return DashboardPageComponent;
 }());
@@ -509,6 +526,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_module__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./material-module */ "./src/app/dashboard/material-module.ts");
 /* harmony import */ var _angular_material__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @angular/material */ "./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var _angular_material_core__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/material/core */ "./node_modules/@angular/material/esm5/core.es5.js");
+/* harmony import */ var _friends_friends_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./friends/friends.component */ "./src/app/dashboard/friends/friends.component.ts");
+
 
 
 
@@ -549,7 +568,8 @@ var DashboardModule = /** @class */ (function () {
                     { path: 'dashboard', component: _dashboard_page_dashboard_page_component__WEBPACK_IMPORTED_MODULE_3__["DashboardPageComponent"] },
                     { path: 'task/:taskId', component: _task_view_task_view_component__WEBPACK_IMPORTED_MODULE_5__["TaskViewComponent"] },
                     { path: 'create', component: _task_create_task_create_component__WEBPACK_IMPORTED_MODULE_4__["TaskCreateComponent"] },
-                    { path: 'notifications', component: _notifications_notifications_component__WEBPACK_IMPORTED_MODULE_6__["NotificationsComponent"] }
+                    { path: 'notifications', component: _notifications_notifications_component__WEBPACK_IMPORTED_MODULE_6__["NotificationsComponent"] },
+                    { path: 'friends', component: _friends_friends_component__WEBPACK_IMPORTED_MODULE_20__["FriendsComponent"] }
                 ])
             ],
             declarations: [
@@ -557,12 +577,179 @@ var DashboardModule = /** @class */ (function () {
                 _task_create_task_create_component__WEBPACK_IMPORTED_MODULE_4__["TaskCreateComponent"],
                 _task_view_task_view_component__WEBPACK_IMPORTED_MODULE_5__["TaskViewComponent"],
                 _notifications_notifications_component__WEBPACK_IMPORTED_MODULE_6__["NotificationsComponent"],
-                _shared_pipe_remove_special_char_pipe__WEBPACK_IMPORTED_MODULE_8__["RemoveSpecialCharPipe"]
+                _shared_pipe_remove_special_char_pipe__WEBPACK_IMPORTED_MODULE_8__["RemoveSpecialCharPipe"],
+                _friends_friends_component__WEBPACK_IMPORTED_MODULE_20__["FriendsComponent"]
             ],
             providers: [_dashboard_route_guard_service__WEBPACK_IMPORTED_MODULE_13__["DashboardRouteGuardService"], { provide: _angular_material_core__WEBPACK_IMPORTED_MODULE_19__["MAT_DATE_LOCALE"], useValue: 'en-GB' }]
         })
     ], DashboardModule);
     return DashboardModule;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/dashboard/friends/friends.component.css":
+/*!*********************************************************!*\
+  !*** ./src/app/dashboard/friends/friends.component.css ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ":root {\r\n    --input-padding-x: 1.5rem;\r\n    --input-padding-y: .75rem;\r\n  }\r\n.bg-grey{\r\n    background:#F2F3F9;\r\n}\r\n.col-md-6{\r\n    margin-top:-5%;\r\n}\r\n.card-signin {\r\n    border: 0;\r\n    border-radius: 1rem;\r\n    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);\r\n}\r\n.card-signin .card-title {\r\n    margin-bottom: 2rem;\r\n    font-weight: 300;\r\n    font-size: 1.5rem;\r\n}\r\n.card-signin {\r\n    padding: 2rem;\r\n}\r\n.card-body{\r\n    padding:2rem;\r\n}\r\n.form-signin {\r\n    width: 100%;\r\n}\r\n.form-signin .btn {\r\n    font-size: 80%;\r\n    border-radius: 5rem;\r\n    letter-spacing: .1rem;\r\n    font-weight: bold;\r\n    padding: 1rem;\r\n    transition: all 0.2s;\r\n    width: 70%;\r\n}\r\n.form-group input{\r\n    border-radius:2rem;\r\n}\r\n.fa-circle{\r\n    color: green;\r\n    font-size: 8px;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvZGFzaGJvYXJkL2ZyaWVuZHMvZnJpZW5kcy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0kseUJBQXlCO0lBQ3pCLHlCQUF5QjtFQUMzQjtBQUNGO0lBQ0ksa0JBQWtCO0FBQ3RCO0FBQ0E7SUFDSSxjQUFjO0FBQ2xCO0FBQ0E7SUFDSSxTQUFTO0lBQ1QsbUJBQW1CO0lBQ25CLDhDQUE4QztBQUNsRDtBQUVBO0lBQ0ksbUJBQW1CO0lBQ25CLGdCQUFnQjtJQUNoQixpQkFBaUI7QUFDckI7QUFFQTtJQUNJLGFBQWE7QUFDakI7QUFDQTtJQUNJLFlBQVk7QUFDaEI7QUFFQTtJQUNJLFdBQVc7QUFDZjtBQUVBO0lBQ0ksY0FBYztJQUNkLG1CQUFtQjtJQUNuQixxQkFBcUI7SUFDckIsaUJBQWlCO0lBQ2pCLGFBQWE7SUFDYixvQkFBb0I7SUFDcEIsVUFBVTtBQUNkO0FBRUE7SUFDSSxrQkFBa0I7QUFDdEI7QUFDQTtJQUNJLFlBQVk7SUFDWixjQUFjO0FBQ2xCIiwiZmlsZSI6InNyYy9hcHAvZGFzaGJvYXJkL2ZyaWVuZHMvZnJpZW5kcy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOnJvb3Qge1xyXG4gICAgLS1pbnB1dC1wYWRkaW5nLXg6IDEuNXJlbTtcclxuICAgIC0taW5wdXQtcGFkZGluZy15OiAuNzVyZW07XHJcbiAgfVxyXG4uYmctZ3JleXtcclxuICAgIGJhY2tncm91bmQ6I0YyRjNGOTtcclxufVxyXG4uY29sLW1kLTZ7XHJcbiAgICBtYXJnaW4tdG9wOi01JTtcclxufVxyXG4uY2FyZC1zaWduaW4ge1xyXG4gICAgYm9yZGVyOiAwO1xyXG4gICAgYm9yZGVyLXJhZGl1czogMXJlbTtcclxuICAgIGJveC1zaGFkb3c6IDAgMC41cmVtIDFyZW0gMCByZ2JhKDAsIDAsIDAsIDAuMSk7XHJcbn1cclxuXHJcbi5jYXJkLXNpZ25pbiAuY2FyZC10aXRsZSB7XHJcbiAgICBtYXJnaW4tYm90dG9tOiAycmVtO1xyXG4gICAgZm9udC13ZWlnaHQ6IDMwMDtcclxuICAgIGZvbnQtc2l6ZTogMS41cmVtO1xyXG59XHJcblxyXG4uY2FyZC1zaWduaW4ge1xyXG4gICAgcGFkZGluZzogMnJlbTtcclxufVxyXG4uY2FyZC1ib2R5e1xyXG4gICAgcGFkZGluZzoycmVtO1xyXG59XHJcblxyXG4uZm9ybS1zaWduaW4ge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbn1cclxuXHJcbi5mb3JtLXNpZ25pbiAuYnRuIHtcclxuICAgIGZvbnQtc2l6ZTogODAlO1xyXG4gICAgYm9yZGVyLXJhZGl1czogNXJlbTtcclxuICAgIGxldHRlci1zcGFjaW5nOiAuMXJlbTtcclxuICAgIGZvbnQtd2VpZ2h0OiBib2xkO1xyXG4gICAgcGFkZGluZzogMXJlbTtcclxuICAgIHRyYW5zaXRpb246IGFsbCAwLjJzO1xyXG4gICAgd2lkdGg6IDcwJTtcclxufVxyXG5cclxuLmZvcm0tZ3JvdXAgaW5wdXR7XHJcbiAgICBib3JkZXItcmFkaXVzOjJyZW07XHJcbn1cclxuLmZhLWNpcmNsZXtcclxuICAgIGNvbG9yOiBncmVlbjtcclxuICAgIGZvbnQtc2l6ZTogOHB4O1xyXG59Il19 */"
+
+/***/ }),
+
+/***/ "./src/app/dashboard/friends/friends.component.html":
+/*!**********************************************************!*\
+  !*** ./src/app/dashboard/friends/friends.component.html ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<section id=\"nav-bar\">\n  <nav class=\"navbar navbar-expand-lg navbar-light\">\n    <a class=\"navbar-brand pointer\" (click)=\"goToDashboard()\"><img src=\"assets/img/logo.png\"></a>\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n      <i class=\"fa fa-bars\"></i>\n    </button>\n    <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\n      <ul class=\"navbar-nav ml-auto\">\n        <li class=\"nav-item\">\n          <a class=\"nav-link pointer\" (click)=\"goToDashboard()\"><i class=\"fa fa-dashboard\" aria-hidden=\"true\"></i> Dashboard</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link\" (click)=\"goToNotifications()\"><i class=\"fa fa-bell\" aria-hidden=\"true\"></i> Notifications</a>\n        </li>\n      </ul>\n    </div>\n  </nav>\n</section>\n\n<div class=\"container-fluid bg-grey \" style=\"padding-top:20px;\">\n  <div class=\"row\" style=\"padding-top:20px; padding-bottom:30px;\">\n\n    <div class=\"col-lg-4\" style=\"padding-top:20px;\">\n      <div class=\"card card-signin\">\n        <div class=\"card-body\">\n          <h5 class=\"card-title text-center\">Search User</h5>\n          <div class=\"form-signin\">\n            <div class=\"form-group\">\n              <p>Please enter user's registered email here</p>\n              <input type=\"email\" id=\"inputEmail\" class=\"form-control\" [(ngModel)]=\"email\" placeholder=\"Enter registered email\" required autofocus>\n            </div>\n            <div class=\"row justify-content-center\">\n              <button class=\"btn btn-lg btn-primary btn-block text-uppercase\" type=\"button\" (click)=\"searchUserFunction()\">Add as friend</button>\n            </div>\n            <hr>\n          </div>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"col-lg-4\" style=\"padding-top:20px;\">\n      <div class=\"card card-signin\">\n        <div class=\"card-body\">\n          <h5 class=\"card-title text-center\">All Friends</h5>\n          <div *ngFor= \"let friend of liveUserInfo.friends\" class=\"col-sm-12\" style=\"padding-left:30px;\">\n            <p> {{friend.firstName}} {{friend.lastName}}</p>\n          </div> \n        </div>\n      </div>\n    </div>\n\n    <div class=\"col-lg-4\" style=\"padding-top:20px;\">\n      <div class=\"card card-signin\">\n        <div class=\"card-body\">\n          <h5 class=\"card-title text-center\">Online Friends</h5>\n          <div *ngFor= \"let friend of userList\" class=\"col-sm-12\" style=\"padding-left:30px;\">\n            <p><i class=\"fa fa-circle\"></i> {{friend.name}}</p>\n          </div> \n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n<section id=\"footer\">\n<img src=\"assets/img/wave2.png\" class=\"footer-img\">\n<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col-md-4 footer-box\">\n      <img src=\"assets/img/logo.png\">\n    </div>\n  </div>\n  <p class=\"copyright\">To Do List Management System | 2019</p>\n</div>\n</section>"
+
+/***/ }),
+
+/***/ "./src/app/dashboard/friends/friends.component.ts":
+/*!********************************************************!*\
+  !*** ./src/app/dashboard/friends/friends.component.ts ***!
+  \********************************************************/
+/*! exports provided: FriendsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FriendsComponent", function() { return FriendsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _app_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../app.service */ "./src/app/app.service.ts");
+/* harmony import */ var _socket_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../socket.service */ "./src/app/socket.service.ts");
+/* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
+/* harmony import */ var ngx_cookie_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-cookie-service */ "./node_modules/ngx-cookie-service/index.js");
+
+
+
+
+
+
+
+var FriendsComponent = /** @class */ (function () {
+    function FriendsComponent(AppService, SocketService, router, toastr, cookieService) {
+        var _this = this;
+        this.AppService = AppService;
+        this.SocketService = SocketService;
+        this.router = router;
+        this.toastr = toastr;
+        this.cookieService = cookieService;
+        this.userList = [];
+        this.scrollToNotificationTop = false;
+        this.messageList = []; // stores the current message list display in notification box
+        this.goToDashboard = function () {
+            _this.router.navigate(['/dashboard']);
+        };
+        this.goToNotifications = function () {
+            _this.router.navigate(['/notifications']);
+        };
+        this.verifyUserConfirmation = function () {
+            _this.SocketService.verifyUser().subscribe(function (data) {
+                _this.disconnectedSocket = false;
+                _this.SocketService.setUser(_this.authToken);
+            });
+        };
+        this.getOnlineUserList = function (liveFriendInfo) {
+            _this.SocketService.onlineUserList().subscribe(function (userList) {
+                _this.userList = [];
+                for (var x in userList) {
+                    for (var y = 0; y < liveFriendInfo.friends.length; y++) {
+                        var friend = liveFriendInfo.friends[y].userId;
+                        if (friend == x) {
+                            var temp = { 'userId': x, 'name': userList[x] };
+                            _this.userList.push(temp);
+                        }
+                    }
+                }
+                console.log(_this.userList);
+            }); // end online-user-list
+        };
+        // notification related methods 
+        this.getMessageFromAUser = function () {
+            _this.SocketService.notificationByUserId(_this.userInfo.userId)
+                .subscribe(function (data) {
+                (_this.receiverId == data.senderId) ? _this.messageList.push(data) : '';
+                _this.toastr.success("" + data.message);
+                _this.scrollToNotificationTop = false;
+            }); //end subscribe
+        }; // end get message from a user 
+        this.searchUserFunction = function () {
+            if (!_this.email) {
+                _this.toastr.warning('Please enter email.');
+            }
+            else {
+                var data = {
+                    email: _this.email
+                };
+                _this.AppService.searchUser(data)
+                    .subscribe(function (apiResponse) {
+                    if (apiResponse.status === 200) {
+                        _this.searchedUserData = apiResponse.data;
+                        _this.sendSUD(_this.searchedUserData);
+                        _this.toastr.success(apiResponse.message);
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 2000);
+                    }
+                    else {
+                        _this.toastr.error(apiResponse.message);
+                    } // end condition
+                }, function (err) {
+                    _this.toastr.error('some error occured');
+                });
+            } // end condition
+        }; // end addNewFriendFunction
+        this.sendSUD = function (searchedUserData) {
+            var notificationMsgObject = {
+                senderName: _this.userInfo.firstName + " " + _this.userInfo.lastName,
+                senderId: _this.userInfo.userId,
+                receiverName: searchedUserData.firstName + " " + searchedUserData.lastName,
+                receiverId: searchedUserData.userId,
+                message: _this.userInfo.firstName + " " + _this.userInfo.lastName + " has added " + searchedUserData.firstName + " " + searchedUserData.lastName + " as friend.",
+                createdOn: new Date()
+            }; // end notificationMsgObject
+            console.log(notificationMsgObject);
+            _this.cookieService.set('receiverId', searchedUserData.userId);
+            _this.cookieService.set('receiverName', searchedUserData.firstName + " " + searchedUserData.lastName);
+            _this.SocketService.SendNotificationMessage(notificationMsgObject);
+        }; // end sendMessage
+    }
+    FriendsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.authToken = this.cookieService.get('authtoken');
+        this.userInfo = this.AppService.getUserInfoFromLocalstorage();
+        this.receiverId = this.cookieService.get("receiverId");
+        this.receiverName = this.cookieService.get('receiverName');
+        this.AppService.getSingleUserData(this.userInfo.userId).subscribe(function (data) {
+            _this.liveUserInfo = data["data"];
+            console.log(_this.liveUserInfo);
+            _this.getOnlineUserList(_this.liveUserInfo);
+        }, function (error) {
+            console.log("some error occured");
+            console.log(error);
+        });
+        this.verifyUserConfirmation();
+        this.getMessageFromAUser();
+    };
+    FriendsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-friends',
+            template: __webpack_require__(/*! ./friends.component.html */ "./src/app/dashboard/friends/friends.component.html"),
+            styles: [__webpack_require__(/*! ./friends.component.css */ "./src/app/dashboard/friends/friends.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_app_service__WEBPACK_IMPORTED_MODULE_3__["AppService"], _socket_service__WEBPACK_IMPORTED_MODULE_4__["SocketService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], ngx_toastr__WEBPACK_IMPORTED_MODULE_5__["ToastrService"], ngx_cookie_service__WEBPACK_IMPORTED_MODULE_6__["CookieService"]])
+    ], FriendsComponent);
+    return FriendsComponent;
 }());
 
 
@@ -675,7 +862,7 @@ module.exports = ":root {\r\n    --input-padding-x: 1.5rem;\r\n    --input-paddi
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<section id=\"nav-bar\">\n  <nav class=\"navbar navbar-expand-lg navbar-light\">\n    <a class=\"navbar-brand pointer\" (click)=\"goToDashboard()\"><img src=\"assets/img/logo.png\"></a>\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n      <i class=\"fa fa-bars\"></i>\n    </button>\n    <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\n      <ul class=\"navbar-nav ml-auto\">\n        <li class=\"nav-item\">\n          <a class=\"nav-link pointer\" (click)=\"goToDashboard()\"><i class=\"fa fa-dashboard\" aria-hidden=\"true\"></i> Dashboard</a>\n        </li>\n      </ul>\n    </div>\n  </nav>\n</section>\n\n<div class=\"container-fluid bg-grey \" style=\"padding-top:15px;\">\n  <div class=\"row align-items-center justify-content-center\" style=\"padding-top:10px; padding-bottom:10px;\">\n    <div class=\"col-10\">\n      <div class=\"card card-signin\">\n        <div class=\"card-body\">\n          <h5 class=\"card-title text-center\">Search User</h5>\n          <div class=\"col-8 offset-2\">\n            <div class=\"form-signin\">\n              <div class=\"form-group\">\n                <p>Please enter user's registered email here</p>\n                <input type=\"email\" id=\"inputEmail\" class=\"form-control\" [(ngModel)]=\"email\" placeholder=\"Enter registered email\" required autofocus>\n              </div>\n              <div class=\"row justify-content-center\">\n                <button class=\"btn btn-lg btn-primary btn-block text-uppercase\" type=\"button\" (click)=\"searchUserFunction()\">Add as friend</button>\n              </div>\n              <hr>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<div class=\"container-fluid bg-grey\" style=\"padding-bottom:30px;\">\n  <div class=\"row\">\n    <div class=\"col-10 offset-1\">\n      <div class=\"card card-signin\">\n        <div class=\"card-body\">\n          <h5 class=\"card-title text-center\">Notifications</h5>\n          <div class=\"row\" #scrollMe [scrollTop]=\"(scrollToNotificationTop)?0:scrollMe.scrollHeight\" *ngIf=\"receiverName\">\n            <div class=\"col-12 text-center\" *ngIf=\"receiverName\">\n              <button class=\"btn btn-success\" (click)=\"loadEarlierPageOfNotification()\">Load Previous Notifications</button>\n              <br>\n              <span *ngIf=\"loadingPreviousNotification == true\">Loading...</span>\n            </div>\n            <br><br>\n            <div class=\"col-12 text-center\" *ngFor=\"let message of messageList\">\n              <br>\n              {{message?.message | removeSpecialCharPipe: '#' | removeSpecialCharPipe: '$'}}&nbsp; &nbsp; <small class=\"text-muted\">{{message?.createdOn | date: 'medium' }}</small>\n              <hr><br>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<section id=\"footer\">\n  <img src=\"assets/img/wave2.png\" class=\"footer-img\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-md-4 footer-box\">\n        <img src=\"assets/img/logo.png\">\n      </div>\n    </div>\n    <p class=\"copyright\">To Do List Management System | 2019</p>\n  </div>\n</section>\n  \n  \n  \n  "
+module.exports = "<section id=\"nav-bar\">\n  <nav class=\"navbar navbar-expand-lg navbar-light\">\n    <a class=\"navbar-brand pointer\" (click)=\"goToDashboard()\"><img src=\"assets/img/logo.png\"></a>\n    <button class=\"navbar-toggler\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n      <i class=\"fa fa-bars\"></i>\n    </button>\n    <div class=\"collapse navbar-collapse\" id=\"navbarNav\">\n      <ul class=\"navbar-nav ml-auto\">\n        <li class=\"nav-item\">\n          <a class=\"nav-link pointer\" (click)=\"goToDashboard()\"><i class=\"fa fa-dashboard\" aria-hidden=\"true\"></i> Dashboard</a>\n        </li>\n        <li class=\"nav-item\">\n          <a class=\"nav-link pointer\" (click)=\"goToFriends()\"><i class=\"fa fa-user-plus\" aria-hidden=\"true\"></i> Friends</a>\n        </li>\n      </ul>\n    </div>\n  </nav>\n</section>\n\n<div class=\"container-fluid bg-grey\" style=\"padding-top:15px;padding-bottom:30px;\">\n  <div class=\"row\">\n    <div class=\"col-10 offset-1\">\n      <div class=\"card card-signin\">\n        <div class=\"card-body\">\n          <h5 class=\"card-title text-center\">Notifications</h5>\n          <div class=\"row\" *ngIf=\"receiverName\">\n            <div class=\"col-12 text-center\" *ngIf=\"receiverName\">\n              <button class=\"btn btn-success\" (click)=\"loadEarlierPageOfNotification()\">Load Previous Notifications</button>\n              <br>\n              <span *ngIf=\"loadingPreviousNotification == true\">Loading...</span>\n            </div>\n            <br><br>\n            <div class=\"col-12 text-center\" *ngFor=\"let message of messageList\">\n              <br>\n              {{message?.message | removeSpecialCharPipe: '#' | removeSpecialCharPipe: '$'}}&nbsp; &nbsp; <small class=\"text-muted\">{{message?.createdOn | date: 'medium' }}</small>\n              <hr><br>\n            </div>\n          </div>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n<section id=\"footer\">\n  <img src=\"assets/img/wave2.png\" class=\"footer-img\">\n  <div class=\"container\">\n    <div class=\"row\">\n      <div class=\"col-md-4 footer-box\">\n        <img src=\"assets/img/logo.png\">\n      </div>\n    </div>\n    <p class=\"copyright\">To Do List Management System | 2019</p>\n  </div>\n</section>\n  \n  \n  \n  "
 
 /***/ }),
 
@@ -711,22 +898,16 @@ var NotificationsComponent = /** @class */ (function () {
         this.router = router;
         this.toastr = toastr;
         this.cookieService = cookieService;
-        this.userList = [];
         this.scrollToNotificationTop = false;
         this.previousNotificationList = [];
         this.messageList = []; // stores the current message list display in notification box
         this.pageValue = 0;
         this.loadingPreviousNotification = false;
-        // public checkStatus: any = () => {
-        //   if (this.cookieService.get('authtoken') === undefined || this.cookieService.get('authtoken') === '' || this.cookieService.get('authtoken') === null) {
-        //     this.router.navigate(['/']);
-        //     return false;
-        //   } else {
-        //     return true;
-        //   }
-        //} // end checkStatus
         this.goToDashboard = function () {
             _this.router.navigate(['/dashboard']);
+        };
+        this.goToFriends = function () {
+            _this.router.navigate(['/friends']);
         };
         this.verifyUserConfirmation = function () {
             _this.SocketService.verifyUser().subscribe(function (data) {
@@ -734,39 +915,38 @@ var NotificationsComponent = /** @class */ (function () {
                 _this.SocketService.setUser(_this.authToken);
             });
         };
-        this.getOnlineUserList = function () {
-            _this.SocketService.onlineUserList().subscribe(function (userList) {
-                _this.userList = [];
-                for (var x in userList) {
-                    for (var y = 0; y < _this.liveUserInfo.friends.length; y++) {
-                        var friend = _this.liveUserInfo.friends[y].userId;
-                        if (friend == x) {
-                            var temp = { 'userId': x, 'name': userList[x], 'unread': 0, 'notificationing': false };
-                            _this.userList.push(temp);
-                        }
-                    }
-                }
-                console.log(_this.userList);
-            }); // end online-user-list
-        };
-        // notification related methods 
+        // public getPreviousNotifications :any = ()=>{
+        //   let previousData = (this.messageList.length > 0 ? this.messageList.slice() : []);
+        //   this.SocketService.getNotification(this.userInfo.userId,this.receiverId, this.pageValue * 10)
+        //   .subscribe((apiResponse) => {
+        //   console.log("this is userId" + this.userInfo.userId+" this is receiverId "+ this.receiverId)
+        //     console.log(apiResponse);
+        //     if (apiResponse.status == 200) {
+        //       this.messageList = apiResponse.data.concat(previousData);
+        //     } else {
+        //       this.messageList = previousData;
+        //       this.toastr.warning('No new notification found.')
+        //     }
+        //     this.loadingPreviousNotification = false;
+        //   }, (err) => {
+        //     this.toastr.error('Some error occured')
+        //   });
+        // }// end get previous notification with any 
         this.getPreviousNotifications = function () {
             var previousData = (_this.messageList.length > 0 ? _this.messageList.slice() : []);
-            _this.SocketService.getNotification(_this.userInfo.userId, _this.receiverId, _this.pageValue * 10)
+            _this.SocketService.getGroupNotification("todoNotification", _this.pageValue * 10)
                 .subscribe(function (apiResponse) {
-                console.log("this is userId" + _this.userInfo.userId + " this is receiverId " + _this.receiverId);
                 console.log(apiResponse);
                 if (apiResponse.status == 200) {
-                    console.log("this is messageList" + _this.messageList);
                     _this.messageList = apiResponse.data.concat(previousData);
                 }
                 else {
                     _this.messageList = previousData;
-                    _this.toastr.warning('No Messages available');
+                    _this.toastr.warning('No new notification found.');
                 }
                 _this.loadingPreviousNotification = false;
             }, function (err) {
-                _this.toastr.error('some error occured');
+                _this.toastr.error('Some error occured');
             });
         }; // end get previous notification with any user
         this.loadEarlierPageOfNotification = function () {
@@ -775,58 +955,6 @@ var NotificationsComponent = /** @class */ (function () {
             _this.scrollToNotificationTop = true;
             _this.getPreviousNotifications();
         }; // end loadPreviousNotification
-        this.userSelectedToNotification = function (id, name) {
-            console.log("setting user as active");
-            // setting that user to notificationing true   
-            _this.userList.map(function (user) {
-                if (user.userId == id) {
-                    user.notificationing = true;
-                }
-                else {
-                    user.notificationing = false;
-                }
-            });
-            _this.cookieService.set('receiverId', id);
-            _this.cookieService.set('receiverName', name);
-            _this.receiverName = name;
-            _this.receiverId = id;
-            _this.messageList = [];
-            _this.pageValue = 0;
-            var notificationDetails = {
-                userId: _this.userInfo.userId,
-                senderId: id
-            };
-            _this.SocketService.markNotificationAsSeen(notificationDetails);
-            _this.getPreviousNotifications();
-        }; // end userBtnClick function
-        this.sendMessageUsingKeypress = function (event) {
-            if (event.keyCode === 13) { // 13 is keycode of enter.
-                _this.sendMessage();
-            }
-        }; // end sendMessageUsingKeypress
-        this.sendMessage = function () {
-            if (_this.messageText) {
-                var notificationMsgObject = {
-                    senderName: _this.userInfo.firstName + " " + _this.userInfo.lastName,
-                    senderId: _this.userInfo.userId,
-                    receiverName: _this.cookieService.get('receiverName'),
-                    receiverId: _this.cookieService.get('receiverId'),
-                    message: _this.messageText,
-                    createdOn: new Date()
-                }; // end notificationMsgObject
-                console.log(notificationMsgObject);
-                _this.SocketService.SendNotificationMessage(notificationMsgObject);
-                _this.pushToNotificationWindow(notificationMsgObject);
-            }
-            else {
-                _this.toastr.warning('text message can not be empty');
-            }
-        }; // end sendMessage
-        this.pushToNotificationWindow = function (data) {
-            _this.messageText = "";
-            _this.messageList.push(data);
-            _this.scrollToNotificationTop = false;
-        }; // end push to notification window
         this.getMessageFromAUser = function () {
             _this.SocketService.notificationByUserId(_this.userInfo.userId)
                 .subscribe(function (data) {
@@ -835,78 +963,20 @@ var NotificationsComponent = /** @class */ (function () {
                 _this.scrollToNotificationTop = false;
             }); //end subscribe
         }; // end get message from a user 
-        this.searchUserFunction = function () {
-            if (!_this.email) {
-                _this.toastr.warning('Please enter email.');
-            }
-            else {
-                var data = {
-                    email: _this.email
-                };
-                _this.AppService.searchUser(data).subscribe(function (data) {
-                    console.log(data);
-                    _this.searchedUserData = data["data"];
-                    _this.sendSUD(_this.searchedUserData);
-                }, function (error) {
-                    console.log("some error occured");
-                    console.log(error);
-                });
-            } // end condition
-        }; // end addNewFriendFunction
-        this.sendSUD = function (searchedUserData) {
-            var notificationMsgObject = {
-                senderName: _this.userInfo.firstName + " " + _this.userInfo.lastName,
-                senderId: _this.userInfo.userId,
-                receiverName: searchedUserData.firstName + " " + searchedUserData.lastName,
-                receiverId: searchedUserData.userId,
-                message: _this.userInfo.firstName + " " + _this.userInfo.lastName + " has added " + searchedUserData.firstName + " " + searchedUserData.lastName + " as friend.",
-                createdOn: new Date()
-            }; // end notificationMsgObject
-            console.log(notificationMsgObject);
-            _this.cookieService.set('receiverId', searchedUserData.userId);
-            _this.cookieService.set('receiverName', searchedUserData.firstName + " " + searchedUserData.lastName);
-            _this.SocketService.SendNotificationMessage(notificationMsgObject);
-            _this.pushToNotificationWindow(notificationMsgObject);
-        }; // end sendMessage
-        this.logout = function () {
-            _this.AppService.logout()
-                .subscribe(function (apiResponse) {
-                if (apiResponse.status === 200) {
-                    console.log("logout called");
-                    _this.cookieService.delete('authtoken');
-                    _this.cookieService.delete('receiverId');
-                    _this.cookieService.delete('receiverName');
-                    _this.SocketService.exitSocket();
-                    _this.router.navigate(['/']);
-                }
-                else {
-                    _this.toastr.error(apiResponse.message);
-                } // end condition
-            }, function (err) {
-                _this.toastr.error('some error occured');
-            });
-        }; // end logout
+        this.pushToNotificationWindow = function (data) {
+            _this.messageList.push(data);
+            console.log("this is messageList" + _this.messageList);
+            _this.scrollToNotificationTop = false;
+        }; // end push to notification window
     }
     NotificationsComponent.prototype.ngOnInit = function () {
-        var _this = this;
         this.authToken = this.cookieService.get('authtoken');
         this.userInfo = this.AppService.getUserInfoFromLocalstorage();
-        this.AppService.getSingleUserData(this.userInfo.userId).subscribe(function (data) {
-            console.log(data);
-            _this.liveUserInfo = data["data"];
-        }, function (error) {
-            console.log("some error occured");
-            console.log(error);
-        });
         this.receiverId = this.cookieService.get("receiverId");
         this.receiverName = this.cookieService.get('receiverName');
         console.log(this.receiverId, this.receiverName);
-        if (this.receiverId != null && this.receiverId != undefined && this.receiverId != '') {
-            this.userSelectedToNotification(this.receiverId, this.receiverName);
-        }
-        //this.checkStatus();
         this.verifyUserConfirmation();
-        this.getOnlineUserList();
+        this.getPreviousNotifications();
         this.getMessageFromAUser();
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -1130,6 +1200,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_cookie_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-cookie-service */ "./node_modules/ngx-cookie-service/index.js");
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var src_app_socket_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! src/app/socket.service */ "./src/app/socket.service.ts");
+
 
 
 
@@ -1139,7 +1211,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var TaskViewComponent = /** @class */ (function () {
-    function TaskViewComponent(_route, router, AppService, location, cookieService, toastr, fb) {
+    function TaskViewComponent(_route, router, AppService, location, cookieService, toastr, fb, SocketService) {
         var _this = this;
         this._route = _route;
         this.router = router;
@@ -1148,6 +1220,8 @@ var TaskViewComponent = /** @class */ (function () {
         this.cookieService = cookieService;
         this.toastr = toastr;
         this.fb = fb;
+        this.SocketService = SocketService;
+        this.messageList = [];
         this.logout = function () {
             _this.AppService.logout()
                 .subscribe(function (apiResponse) {
@@ -1274,9 +1348,9 @@ var TaskViewComponent = /** @class */ (function () {
         var taskId = this.currentTask.taskId;
         console.log(title, subTask, status, dueDate, priority);
         this.AppService.editTask(title, subTask, status, dueDate, priority, taskId).subscribe(function (data) {
-            console.log("task created");
+            console.log("task edited");
             console.log(data);
-            _this.toastr.success('Task Created', 'Success');
+            _this.toastr.success('Task Edited', 'Success');
             setTimeout(function () {
                 _this.router.navigate(['/dashboard']);
             }, 1000);
@@ -1285,6 +1359,16 @@ var TaskViewComponent = /** @class */ (function () {
             console.log(error);
             alert("Some error occured.");
         });
+        var notificationMsgObject = {
+            senderName: this.userInfo.firstName + " " + this.userInfo.lastName,
+            senderId: this.userInfo.userId,
+            notificationRoom: "todoNotification",
+            message: this.userInfo.firstName + " " + this.userInfo.lastName + " has edited the list " + task.taskTitle,
+            createdOn: new Date()
+        }; // end notificationMsgObject
+        console.log(notificationMsgObject);
+        this.SocketService.SendNotificationMessage(notificationMsgObject);
+        this.messageList.push(notificationMsgObject);
     };
     TaskViewComponent.prototype.deleteThisTask = function () {
         var _this = this;
@@ -1311,7 +1395,14 @@ var TaskViewComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./task-view.component.html */ "./src/app/dashboard/task-view/task-view.component.html"),
             styles: [__webpack_require__(/*! ./task-view.component.css */ "./src/app/dashboard/task-view/task-view.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _app_service__WEBPACK_IMPORTED_MODULE_3__["AppService"], _angular_common__WEBPACK_IMPORTED_MODULE_4__["Location"], ngx_cookie_service__WEBPACK_IMPORTED_MODULE_5__["CookieService"], ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["FormBuilder"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _app_service__WEBPACK_IMPORTED_MODULE_3__["AppService"],
+            _angular_common__WEBPACK_IMPORTED_MODULE_4__["Location"],
+            ngx_cookie_service__WEBPACK_IMPORTED_MODULE_5__["CookieService"],
+            ngx_toastr__WEBPACK_IMPORTED_MODULE_6__["ToastrService"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_7__["FormBuilder"],
+            src_app_socket_service__WEBPACK_IMPORTED_MODULE_8__["SocketService"]])
     ], TaskViewComponent);
     return TaskViewComponent;
 }());
@@ -1645,7 +1736,7 @@ var SocketService = /** @class */ (function () {
         var _this = this;
         this.http = http;
         this.cookieService = cookieService;
-        this.url = 'http://api.jayshal.co.in';
+        this.url = 'http://api.jayshal.co.in/api/v1/notifications';
         // events to be listened 
         this.verifyUser = function () {
             return rxjs__WEBPACK_IMPORTED_MODULE_3__["Observable"].create(function (observer) {
@@ -1695,9 +1786,13 @@ var SocketService = /** @class */ (function () {
     // events to be emitted
     // notification related methods 
     SocketService.prototype.getNotification = function (senderId, receiverId, skip) {
-        return this.http.get(this.url + "/api/v1/notifications/get/for/user?senderId=" + senderId + "&receiverId=" + receiverId + "&skip=" + skip + "&authToken=" + this.cookieService.get('authtoken'))
+        return this.http.get(this.url + "/get/for/user?senderId=" + senderId + "&receiverId=" + receiverId + "&skip=" + skip + "&authToken=" + this.cookieService.get('authtoken'))
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function (data) { return console.log('Data Received'); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])(this.handleError));
-    }; // end logout function
+    };
+    SocketService.prototype.getGroupNotification = function (notificationRoom, skip) {
+        return this.http.get(this.url + "/get/for/group?notificationRoom=" + notificationRoom + "&skip=" + skip + "&authToken=" + this.cookieService.get('authtoken'))
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["tap"])(function (data) { return console.log('Data Received'); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_5__["catchError"])(this.handleError));
+    };
     SocketService.prototype.handleError = function (err) {
         var errorMessage = '';
         if (err.error instanceof Error) {

@@ -19,6 +19,7 @@ import { CdkTableModule} from '@angular/cdk/table';
 import {DemoMaterialModule} from './material-module';
 import {MatNativeDateModule} from '@angular/material';
 import {MAT_DATE_LOCALE} from '@angular/material/core';
+import { FriendsComponent } from './friends/friends.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import {MAT_DATE_LOCALE} from '@angular/material/core';
       { path: 'dashboard', component: DashboardPageComponent},
       { path:'task/:taskId', component: TaskViewComponent},
       { path:'create', component:TaskCreateComponent},
-      { path: 'notifications', component: NotificationsComponent}   
+      { path: 'notifications', component: NotificationsComponent},
+      { path:'friends', component:FriendsComponent}
     ])
   ],
   declarations: [
@@ -45,7 +47,8 @@ import {MAT_DATE_LOCALE} from '@angular/material/core';
     TaskCreateComponent, 
     TaskViewComponent, 
     NotificationsComponent,
-    RemoveSpecialCharPipe
+    RemoveSpecialCharPipe,
+    FriendsComponent
   ],
   providers:[DashboardRouteGuardService,{provide: MAT_DATE_LOCALE, useValue: 'en-GB'}]
 })

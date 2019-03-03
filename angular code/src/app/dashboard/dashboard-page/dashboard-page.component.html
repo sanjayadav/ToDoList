@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link pointer" [routerLink]="['/dashboard']"><i class="fa fa-dashboard" aria-hidden="true"></i> Dashboard</a>
+          <a class="nav-link pointer" (click)="goToFriends()"><i class="fa fa-user-plus" aria-hidden="true"></i> Friends</a>
         </li>
         <li class="nav-item">
           <a class="nav-link pointer" (click)="goToNotifications()"><i class="fa fa-bell" aria-hidden="true"></i> Notifications</a>
