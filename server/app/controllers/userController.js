@@ -460,7 +460,7 @@ let forgotPasswordFunction = (req, res) => {
         from: 'todolistmanagement@gmail.com', // sender address
         to: responseBody.userDetails.email, // list of receivers
         subject: 'Password Reset', // Subject line
-        html: "You requested for a password reset, kindly use this http://localhost:3000/reset_password?userId="+responseBody.userDetails.userId+"?authToken=" + responseBody.authToken +"link to reset your password."
+        html: "You requested for a password reset, kindly use this http://jayshal.co.in/reset_password?userId="+responseBody.userDetails.userId+"?authToken=" + responseBody.authToken +"link to reset your password."
       };
       transporter.sendMail(mailOptions, function (error, info) {
         if(error)
